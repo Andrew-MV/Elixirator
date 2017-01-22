@@ -1,0 +1,19 @@
+<div class="product">
+  <div class="title">
+    <%= product_title(product) %>
+  </div>
+  <div class="price">
+    <span<%== ' class="old-price"' unless product.sale.zero? %>>
+      <%= product_price(product) %>
+    </span>
+    <% unless product.sale.zero? %>
+      <span>
+        <%= number_to_currency(product.price_with_sale) %>
+      </span>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= link_to 'Edit', edit_product_path(product) %>
+    <%= link_to 'Archive', product, method: :delete %>
+  </div>
+</div>

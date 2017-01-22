@@ -5,4 +5,10 @@ class User < ApplicationRecord
     management: 10,
     admin: 20
   }
+
+  def user_name(id)
+    @user = User.find(id)
+    @user.first_name + ' ' + @user.last_name
+  end
+
 end
