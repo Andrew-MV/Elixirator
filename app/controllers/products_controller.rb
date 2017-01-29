@@ -10,10 +10,14 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    if @product.destroy
-      flash[:notice] = 'product was successfully deleted'
-    else
-      flash[:error] = 'an error occurred'
+    if current_user
+      if current_user.role == 'admin'
+        if @product.destroy
+            flash[:notice] = 'product was successfully deleted'
+          else
+            flash[:error] = 'an error occurred'
+        end
+      end
     end
     redirect_to root_url
   end

@@ -6,6 +6,7 @@ class CreateProducts < ActiveRecord::Migration[5.0]
       t.decimal :price,       null: false
       t.decimal :sale
       t.integer :updated_by
+      t.string  :deleted_at
 
       t.timestamps
     end

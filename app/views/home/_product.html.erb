@@ -1,19 +1,28 @@
 <div class="product">
-  <div class="title">
-    <%= product_title(product) %>
-  </div>
-  <div class="price">
+  <% unless (!product.deleted_at.nil?) && (current_user.nil?) %>
+    <div class="title">
+    <span<%== ' class="archived"' unless product.deleted_at.nil? %>>
+      <%= product_title(product) %>
+    </span>
+    </div>
+    <div class="price">
     <span<%== ' class="old-price"' unless product.sale.zero? %>>
       <%= product_price(product) %>
     </span>
-    <% unless product.sale.zero? %>
+      <% unless product.sale.zero? %>
       <span>
         <%= number_to_currency(product.price_with_sale) %>
       </span>
-    <% end %>
-  </div>
-  <div class="actions">
-    <%= link_to 'Edit', edit_product_path(product) %>
-    <%= link_to 'Archive', product, method: :delete %>
-  </div>
+      <% end %>
+    </div>
+  <% end %>
+    <div class="actions">
+      <% if current_user %>
+          <%= link_to 'Edit', edit_product_path(product) if (%w(admin management employee).include?(current_user.role))&&(product.deleted_at.nil?) %>
+          <%= link_to 'Archive', product, method: :delete if (%w(admin management).include?(current_user.role))&&(product.deleted_at.nil?) %>
+          <% if (current_user.role == 'admin') && product.updated_by %>
+              <%= 'Updated by:' %><%= link_to 'User name', root_url %>
+          <% end %>
+      <% end %>
+    </div>
 </div>

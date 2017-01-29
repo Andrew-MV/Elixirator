@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20161118151148) do
     t.decimal  "price",      null: false
     t.decimal  "sale"
     t.integer  "updated_by"
+    t.string   "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

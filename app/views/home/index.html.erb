@@ -1,1 +1,6 @@
+<div>
+  <% if current_user %>
+    <%= link_to 'Default view', root_url if current_user.role == 'admin' %>
+  <% end %>
+</div>
 <%= render partial: 'product', collection: @products %>
